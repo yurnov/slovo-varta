@@ -54,7 +54,7 @@ Administrative work in the Ukrainian military and public sector often requires p
 - ✅ **Patronymics** (По батькові) - Григорович → Григоровича, Григоровичу
 - ✅ **Family Names** (Прізвище) - Шевченко → Шевченка, Шевченку
 - ✅ **Compound Names** (Складні імена) - Нечуй-Левицький → Нечуя-Левицького
-- ✅ **Adjective Surnames** - Новоставський → Новоставського, Новоставському
+- ✅ **Adjective Surnames** - Левицький → Левицького, Левицькому
 - ✅ **Gender Support** - Multiple formats: m/f, ч/ж, masculine/feminine
 - ✅ **Excel Functions** - Easy-to-use formulas like `=GivenNameGenitive("Тарас", "m")`
 - ✅ **No External Dependencies** - Pure VBA, works offline
@@ -144,27 +144,27 @@ If you prefer to copy-paste:
 
 ### Example 1: Genitive Case for Certificates
 
-Create a certificate: "Сертифікат виданий [ПІБ в родовому відмінку]"
+Military order: "Призначити на посаду [ПІБ в родовому відмінку]"
 
 | A | B | C | D | E |
 |---|---|---|---|---|
 | **Ім'я** | **По батькові** | **Прізвище** | **Стать** | **Сертифікат** |
-| Тарас | Григорович | Шевченко | m | =CONCATENATE("Сертифікат виданий ", GivenNameGenitive(A2,$D2), " ", PatronymicGenitive(B2,$D2), " ", FamilyNameGenitive(C2,$D2)) |
+| Тарас | Григорович | Шевченко | ч | =CONCATENATE("Призначити на посаду ", GivenNameGenitive(A2,$D2), " ", PatronymicGenitive(B2,$D2), " ", FamilyNameGenitive(C2,$D2)) |
 
 **Result:**
-`Сертифікат виданий Тараса Григоровича Шевченка`
+`Призначити на посаду Тараса Григоровича Шевченка`
 
 ### Example 2: Dative Case for Orders
 
-Military order: "Призначити на посаду [ПІБ в давальному відмінку]"
+Create a certificate: "Сертифікат виданий [ПІБ в давальному відмінку]"
 
 | A | B | C | D | E |
 |---|---|---|---|---|
 | **Ім'я** | **По батькові** | **Прізвище** | **Стать** | **Наказ** |
-| Юрій | Ігорович | Новоставський | m | =CONCATENATE("Призначити на посаду ", GivenNameDative(A2,$D2), " ", PatronymicDative(B2,$D2), " ", FamilyNameDative(C2,$D2)) |
+| Іван | Якович | Франко | ч | =CONCATENATE("Сертифікат виданий ", GivenNameDative(A2,$D2), " ", PatronymicDative(B2,$D2), " ", FamilyNameDative(C2,$D2)) |
 
 **Result:**
-`Призначити на посаду Юрію Ігоровичу Новоставському`
+`Сертифікат виданий Івану Яковичу Франку`
 
 ---
 
@@ -311,7 +311,7 @@ Decline family name (прізвище) to genitive case (родовий відм
 
 **Example:**
 ```excel
-=FamilyNameGenitive("Новоставський", "m") → "Новоставського"
+=FamilyNameGenitive("Левицький", "m") → "Левицького"
 ```
 
 ---
@@ -328,7 +328,7 @@ Decline family name (прізвище) to dative case (давальний від
 
 **Example:**
 ```excel
-=FamilyNameDative("Новоставський", "m") → "Новоставському"
+=FamilyNameDative("Левицький", "m") → "Левицькому"
 ```
 
 ---
@@ -503,12 +503,22 @@ If you find **Slovo-Varta** helpful, the best way to say "thank you" is to **don
 ### **Come Back Alive Foundation** (Повернись живим)
 **[🔗 Donate Here](https://savelife.in.ua/en/donate-en)**
 
-Come Back Alive is a charitable foundation that comprehensively equips the Defence Forces of Ukraine with:
-- 🚁 Drones and UAV systems
-- 🎯 Tactical gear and communication systems
-- 📡 Electronic warfare equipment
-- 🎓 Educational programs for the military
-- and much more
+Come Back Alive is a charitable foundation that has been comprehensively supporting the Defence Forces of Ukraine since 2014. They have supplied:
+
+**🎯 Equipment & Systems:**
+- **43,000+ FPV drones** for reconnaissance and combat operations
+- **12,000+ thermal imaging optics units** for enhanced battlefield awareness
+- **5,000+ infantry weapons** (mortars, grenade launchers, machine guns)
+- **Bayraktar TB2 strike UAV complex** for strategic operations
+- **Mobile F-16 service systems** for faster and safer fighter jet maintenance
+- 📡 Electronic warfare equipment and communication systems
+
+**🎓 Military Education:**
+- Trained **11,000+ highly qualified specialists**: sappers, snipers, UAV operators, infantry weapons specialists
+- Deployed **tactical medicine training complexes** throughout the Armed Forces
+- Support for **classified missions** (details to be shared after victory)
+
+All contributions and impact are transparently tracked in [their detailed reporting](https://savelife.in.ua/en/reporting-en/).
 
 **Every donation helps protect Ukraine and save lives.** 🇺🇦
 
@@ -526,7 +536,7 @@ If you find this project useful, please give it a ⭐ on GitHub!
 
 ## 📈 Changelog
 
-### Initial version
+### Initial version (1.0.0-alpha)
 - ✅ Initial release
 - ✅ Genitive and dative case support
 - ✅ Given names, patronymics, and family names
