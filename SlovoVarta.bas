@@ -237,7 +237,7 @@ Public Function DebugDecline(ByVal nameText As String, _
     On Error Resume Next
     result = result & "Result: [" & DeclineName(nameText, nameType, gender, targetCase) & "]" & vbCrLf
     If Err.Number <> 0 Then
-        result = result & "ERROR: " & Err. Description & vbCrLf
+        result = result & "ERROR: " & Err.Description & vbCrLf
     End If
     On Error GoTo 0
 
