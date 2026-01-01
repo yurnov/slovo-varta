@@ -260,19 +260,25 @@ Private Function ParseGender(ByVal genderStr As String) As GrammaticalGender
     g = LCase(Trim(genderStr))
 
     Select Case g
-        Case "m", "masculine", "man"
+        Case "m", "masculine", "man", "male"
             ParseGender = Masculine
-        Case "f", "feminine", "woman", "w"
+        Case "f", "feminine", "woman", "w", "female"
             ParseGender = Feminine
         Case Else
-            ' Check Ukrainian characters using Chr codes
-            If g = Chr(1095) Or g = Chr(1095) & Chr(1086) & Chr(1083) & Chr(1086) & Chr(1074) & Chr(1110) & Chr(1082) Then ' ч, чоловік
+            ' Check Ukrainian characters using ChrW codes for proper Unicode support
+            If g = ChrW(1095) Or _
+               g = ChrW(1095) & ChrW(1086) & ChrW(1083) & ChrW(1086) & ChrW(1074) & ChrW(1110) & ChrW(1082) Or _
+               g = ChrW(1095) & ChrW(1086) & ChrW(1083) & ChrW(1086) & ChrW(1074) & ChrW(1110) & ChrW(1095) & ChrW(1080) & ChrW(1081) Then
+                ' ч, чоловік, чоловічий
                 ParseGender = Masculine
-            ElseIf g = Chr(1078) Or g = Chr(1078) & Chr(1110) & Chr(1085) & Chr(1082) & Chr(1072) Then ' ж, жінка
+            ElseIf g = ChrW(1078) Or _
+                   g = ChrW(1078) & ChrW(1110) & ChrW(1085) & ChrW(1082) & ChrW(1072) Or _
+                   g = ChrW(1078) & ChrW(1110) & ChrW(1085) & ChrW(1086) & ChrW(1095) & ChrW(1080) & ChrW(1081) Then
+                ' ж, жінка, жіночий
                 ParseGender = Feminine
             Else
                 Err.Raise vbObjectError + 1, "ParseGender", _
-                    "Invalid gender:  '" & genderStr & "'.  Use:  m/f/ч/ж/masculine/feminine"
+                    "Invalid gender:  '" & genderStr & "'.  Use:  m/f/male/female/ч/ж/masculine/feminine"
             End If
     End Select
 End Function
