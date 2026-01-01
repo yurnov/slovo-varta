@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v6
-        with:
-          fetch-tags: True
       - name: Lint SlovoVarta.bas
         uses: Vba-actions/lint-vba@main
         with:
