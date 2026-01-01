@@ -1,33 +1,33 @@
 '===============================================================================
 ' Slovo-Varta (Слово-Варта)
-' Version:  1.0.0
-' Date: 2025-12-31
-' 
-' Description: 
-'   Open-source VBA module for Microsoft Excel designed for the automatic 
-'   declension of Ukrainian names, surnames, and patronymics. 
+' Version:  1.0.0a
+' Date: 2026-01-01
 '
-' Purpose: 
-'   Administrative work in the Ukrainian military and public sector often 
-'   requires processing thousands of names in different grammatical cases. 
-'   This project automates that process, reducing manual errors and saving 
+' Description:
+'   Open-source VBA module for Microsoft Excel designed for the automatic
+'   declension of Ukrainian names, surnames, and patronymics.
+'
+' Purpose:
+'   Administrative work in the Ukrainian military and public sector often
+'   requires processing thousands of names in different grammatical cases.
+'   This project automates that process, reducing manual errors and saving
 '   time for more critical tasks.
 '
-' Author:  
+' Author:
 '   Yuriy Novostavskiy (@yurnov)
-'  Created with support of GitHub Copilot (Claude Sonnet 4.5 model)
-' 
+'   Created with support of GitHub Copilot (Claude Sonnet 4.5 model)
+'
 ' License: MIT License
 ' Repository: https://github.com/yurnov/slovo-varta
 '
 ' Inspired by: shevchenko-js library (https://github.com/tooleks/shevchenko-js)
-' 
+'
 ' Special Thanks:
 '   - Authors of shevchenko-js library
 '   - Defense Forces of Ukraine (Сили оборони України)
 '
 ' Support:
-'   If you find this project helpful, please consider donating to: 
+'   If you find this project helpful, please consider donating to:
 '   "Come Back Alive" Foundation (Повернись живим)
 '   https://savelife.in.ua/en/donate-en
 '   Comprehensively equips the Defence Forces of Ukraine with equipment
@@ -102,30 +102,30 @@ Public Function DeclineName(ByVal nameText As String, _
                            ByVal gender As String, _
                            ByVal targetCase As String) As String
     On Error GoTo ErrorHandler
-    
+
     nameText = Trim(nameText)
     nameType = Trim(nameType)
     gender = Trim(gender)
     targetCase = Trim(targetCase)
-    
+
     If nameText = "" Then
         DeclineName = ""
         Exit Function
     End If
-    
+
     Dim genderEnum As GrammaticalGender
     genderEnum = ParseGender(gender)
-    
+
     Dim caseEnum As GrammaticalCase
     caseEnum = ParseCase(targetCase)
-    
+
     Dim nameTypeEnum As NameComponent
     nameTypeEnum = ParseNameType(nameType)
-    
+
     DeclineName = DeclineNameInternal(nameText, nameTypeEnum, genderEnum, caseEnum)
     Exit Function
-    
-ErrorHandler:  
+
+ErrorHandler:
     DeclineName = "#ERROR:  " & Err.Description
 End Function
 
@@ -151,7 +151,7 @@ End Function
 ' * @param gender - Gender (m/f/ч/ж)
 ' * @return Given name in dative case (давальний відмінок)
 ' *
-' * Example: 
+' * Example:
 ' *   =GivenNameDative("Тарас", "m")
 ' *   Returns: "Тарасу"
 ' */
@@ -195,7 +195,7 @@ End Function
 '/**
 ' * Decline family name (прізвище) to dative case
 ' *
-' * Example: 
+' * Example:
 ' *   =FamilyNameDative("Шевченко", "m")
 ' *   Returns: "Шевченку"
 ' */
@@ -218,7 +218,7 @@ Public Function DebugDecline(ByVal nameText As String, _
                             ByVal targetCase As String) As String
     Dim result As String
     Dim nameLen As Long
-    
+
     result = "=== SLOVO-VARTA DEBUG ===" & vbCrLf
     result = result & "Raw Input: [" & nameText & "]" & vbCrLf
     result = result & "Trimmed:  [" & Trim(nameText) & "]" & vbCrLf
@@ -226,21 +226,21 @@ Public Function DebugDecline(ByVal nameText As String, _
     result = result & "Name Type: [" & nameType & "]" & vbCrLf
     result = result & "Gender:  [" & gender & "]" & vbCrLf
     result = result & "Case: [" & targetCase & "]" & vbCrLf
-    
+
     nameLen = Len(Trim(nameText))
     If nameLen > 0 Then
         result = result & "Last char: [" & Right(Trim(nameText), 1) & "]" & vbCrLf
         result = result & "Last 2 chars: [" & Right(Trim(nameText), 2) & "]" & vbCrLf
         result = result & "Last 3 chars: [" & Right(Trim(nameText), 3) & "]" & vbCrLf
     End If
-    
+
     On Error Resume Next
     result = result & "Result: [" & DeclineName(nameText, nameType, gender, targetCase) & "]" & vbCrLf
     If Err.Number <> 0 Then
         result = result & "ERROR: " & Err. Description & vbCrLf
     End If
     On Error GoTo 0
-    
+
     DebugDecline = result
 End Function
 
@@ -258,7 +258,7 @@ End Function
 Private Function ParseGender(ByVal genderStr As String) As GrammaticalGender
     Dim g As String
     g = LCase(Trim(genderStr))
-    
+
     Select Case g
         Case "m", "masculine", "man"
             ParseGender = Masculine
@@ -280,7 +280,7 @@ End Function
 Private Function ParseCase(ByVal caseStr As String) As GrammaticalCase
     Dim c As String
     c = LCase(Trim(caseStr))
-    
+
     Select Case c
         Case "genitive", "gen", "g"
             ParseCase = Genitive
@@ -297,7 +297,7 @@ End Function
 Private Function ParseNameType(ByVal nameTypeStr As String) As NameComponent
     Dim nt As String
     nt = LCase(Trim(nameTypeStr))
-    
+
     Select Case nt
         Case "given", "givenname", "first", "firstname", "g"
             ParseNameType = GivenName
@@ -323,12 +323,12 @@ Private Function DeclineNameInternal(ByVal nameText As String, _
         DeclineNameInternal = nameText
         Exit Function
     End If
-    
+
     If InStr(nameText, "-") > 0 Then
         DeclineNameInternal = DeclineCompoundName(nameText, nameType, gender, targetCase)
         Exit Function
     End If
-    
+
     Select Case nameType
         Case GivenName
             DeclineNameInternal = DeclineGivenName(nameText, gender, targetCase)
@@ -349,7 +349,7 @@ Private Function DeclineGivenName(ByVal name As String, _
     Dim stem As String
     Dim nameLen As Long
     nameLen = Len(name)
-    
+
     If gender = Masculine Then
         ' === -ій (Юрій, Андрій, Василій, Сергій) ===
         ' Keep 'і' + add ending (Юрій → Юрі + ю = Юрію)
@@ -362,7 +362,7 @@ Private Function DeclineGivenName(ByVal name As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -й (not preceded by і) ===
         If EndsWith(name, ChrW(1081)) And Not EndsWith(name, ChrW(1110) & ChrW(1081)) Then ' й
             stem = Left(name, nameLen - 1)
@@ -373,7 +373,7 @@ Private Function DeclineGivenName(ByVal name As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -о (Павло, Данило) ===
         If EndsWith(name, ChrW(1086)) Then ' о
             stem = Left(name, nameLen - 1)
@@ -384,7 +384,7 @@ Private Function DeclineGivenName(ByVal name As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -ь (Ігор) ===
         If EndsWith(name, ChrW(1100)) Then ' ь
             stem = Left(name, nameLen - 1)
@@ -395,7 +395,7 @@ Private Function DeclineGivenName(ByVal name As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -я, -а (rare masculine:  Ілля, Нікіта) ===
         If EndsWith(name, ChrW(1103)) Or EndsWith(name, ChrW(1072)) Then ' я or а
             stem = Left(name, nameLen - 1)
@@ -406,7 +406,7 @@ Private Function DeclineGivenName(ByVal name As String, _
             End If
             Exit Function
         End If
-        
+
         ' === CONSONANT (Тарас, Іван, Богдан) ===
         If IsConsonant(Right(name, 1)) Then
             If targetCase = Genitive Then
@@ -416,7 +416,7 @@ Private Function DeclineGivenName(ByVal name As String, _
             End If
             Exit Function
         End If
-        
+
     Else  ' FEMININE
         ' === -а (Людмила, Лариса, Марія) ===
         If EndsWith(name, ChrW(1072)) Then ' а
@@ -428,7 +428,7 @@ Private Function DeclineGivenName(ByVal name As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -я (Софія, Наталія) ===
         If EndsWith(name, ChrW(1103)) Then ' я
             stem = Left(name, nameLen - 1)
@@ -439,7 +439,7 @@ Private Function DeclineGivenName(ByVal name As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -ь (Любов) ===
         If EndsWith(name, ChrW(1100)) Then ' ь
             stem = Left(name, nameLen - 1)
@@ -451,7 +451,7 @@ Private Function DeclineGivenName(ByVal name As String, _
             Exit Function
         End If
     End If
-    
+
     ' Default:  no change (indeclinable names)
     DeclineGivenName = name
 End Function
@@ -466,7 +466,7 @@ Private Function DeclinePatronymic(ByVal patronymic As String, _
     Dim stem As String
     Dim nameLen As Long
     nameLen = Len(patronymic)
-    
+
     If gender = Masculine Then
         ' === Various -ович endings ===
         If EndsWith(patronymic, ChrW(1086) & ChrW(1074) & ChrW(1080) & ChrW(1095)) Or _
@@ -484,7 +484,7 @@ Private Function DeclinePatronymic(ByVal patronymic As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -ич (standalone:  Ілліч) ===
         If EndsWith(patronymic, ChrW(1080) & ChrW(1095)) Then ' ич
             If targetCase = Genitive Then
@@ -494,7 +494,7 @@ Private Function DeclinePatronymic(ByVal patronymic As String, _
             End If
             Exit Function
         End If
-        
+
     Else  ' FEMININE
         ' === -івна, -ївна ===
         If EndsWith(patronymic, ChrW(1110) & ChrW(1074) & ChrW(1085) & ChrW(1072)) Or _
@@ -507,7 +507,7 @@ Private Function DeclinePatronymic(ByVal patronymic As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -ична (rare) ===
         If EndsWith(patronymic, ChrW(1080) & ChrW(1095) & ChrW(1085) & ChrW(1072)) Then
             stem = Left(patronymic, nameLen - 1)
@@ -519,7 +519,7 @@ Private Function DeclinePatronymic(ByVal patronymic As String, _
             Exit Function
         End If
     End If
-    
+
     ' Default: no change
     DeclinePatronymic = patronymic
 End Function
@@ -534,7 +534,7 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
     Dim stem As String
     Dim nameLen As Long
     nameLen = Len(familyName)
-    
+
     If gender = Masculine Then
         ' === ADJECTIVES:  -ський, -цький ===
         If EndsWith(familyName, ChrW(1089) & ChrW(1100) & ChrW(1082) & ChrW(1080) & ChrW(1081)) Or _
@@ -547,7 +547,7 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             End If
             Exit Function
         End If
-        
+
         ' === ADJECTIVES: -ний, -ній, -ий, -ій ===
         If EndsWith(familyName, ChrW(1085) & ChrW(1080) & ChrW(1081)) Or _
            EndsWith(familyName, ChrW(1085) & ChrW(1110) & ChrW(1081)) Or _
@@ -561,7 +561,7 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -ко (Шевченко, Максименко) ===
         If EndsWith(familyName, ChrW(1082) & ChrW(1086)) Then
             stem = Left(familyName, nameLen - 1)
@@ -572,7 +572,7 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -ук, -юк ===
         If EndsWith(familyName, ChrW(1091) & ChrW(1082)) Or _
            EndsWith(familyName, ChrW(1102) & ChrW(1082)) Then
@@ -583,7 +583,7 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -ець ===
         If EndsWith(familyName, ChrW(1077) & ChrW(1094) & ChrW(1100)) Then
             stem = Left(familyName, nameLen - 3)
@@ -594,7 +594,7 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -ич ===
         If EndsWith(familyName, ChrW(1080) & ChrW(1095)) Then
             If targetCase = Genitive Then
@@ -604,7 +604,7 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             End If
             Exit Function
         End If
-        
+
         ' === CONSONANT (Коваль, Бондар) ===
         If IsConsonant(Right(familyName, 1)) Then
             If targetCase = Genitive Then
@@ -614,7 +614,7 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             End If
             Exit Function
         End If
-        
+
     Else  ' FEMININE
         ' === ADJECTIVES: -ська, -цька ===
         If EndsWith(familyName, ChrW(1089) & ChrW(1100) & ChrW(1082) & ChrW(1072)) Or _
@@ -627,7 +627,7 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -ко ===
         If EndsWith(familyName, ChrW(1082) & ChrW(1086)) Then
             stem = Left(familyName, nameLen - 1)
@@ -638,7 +638,7 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -а ===
         If EndsWith(familyName, ChrW(1072)) Then
             stem = Left(familyName, nameLen - 1)
@@ -649,7 +649,7 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             End If
             Exit Function
         End If
-        
+
         ' === -я ===
         If EndsWith(familyName, ChrW(1103)) Then
             stem = Left(familyName, nameLen - 1)
@@ -660,14 +660,14 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             End If
             Exit Function
         End If
-        
+
         ' === CONSONANT (indeclinable for women:  Косач) ===
         If IsConsonant(Right(familyName, 1)) Then
             DeclineFamilyName = familyName
             Exit Function
         End If
     End If
-    
+
     ' Default: no change
     DeclineFamilyName = familyName
 End Function
@@ -683,10 +683,10 @@ Private Function DeclineCompoundName(ByVal nameText As String, _
     Dim parts() As String
     Dim declinedParts() As String
     Dim i As Integer
-    
+
     parts = Split(nameText, "-")
     ReDim declinedParts(UBound(parts))
-    
+
     For i = LBound(parts) To UBound(parts)
         If i = UBound(parts) Then
             ' Decline only last part
@@ -696,7 +696,7 @@ Private Function DeclineCompoundName(ByVal nameText As String, _
             declinedParts(i) = Trim(parts(i))
         End If
     Next i
-    
+
     DeclineCompoundName = Join(declinedParts, "-")
 End Function
 
@@ -707,18 +707,18 @@ End Function
 Private Function EndsWith(ByVal text As String, ByVal ending As String) As Boolean
     Dim textLen As Long
     Dim endLen As Long
-    
+
     text = Trim(text)
     ending = Trim(ending)
-    
+
     textLen = Len(text)
     endLen = Len(ending)
-    
+
     If textLen < endLen Then
         EndsWith = False
         Exit Function
     End If
-    
+
     ' Use binary comparison for exact match
     EndsWith = (StrComp(Right(text, endLen), ending, vbBinaryCompare) = 0)
 End Function
@@ -728,16 +728,16 @@ Private Function IsConsonant(ByVal char As String) As Boolean
     ' б=1073, в=1074, г=1075, ґ=1169, д=1076, ж=1078, з=1079, к=1082, л=1083,
     ' м=1084, н=1085, п=1087, р=1088, с=1089, т=1090, ф=1092, х=1093, ц=1094,
     ' ч=1095, ш=1096, щ=1097, ь=1100
-    
+
     Dim code As Long
-    
+
     If Len(char) = 0 Then
         IsConsonant = False
         Exit Function
     End If
-    
+
     code = AscW(char)
-    
+
     ' Lowercase Ukrainian consonants
     If code = 1073 Or code = 1074 Or code = 1075 Or code = 1169 Or code = 1076 Or _
        code = 1078 Or code = 1079 Or code = 1082 Or code = 1083 Or code = 1084 Or _
@@ -747,7 +747,7 @@ Private Function IsConsonant(ByVal char As String) As Boolean
         IsConsonant = True
         Exit Function
     End If
-    
+
     ' Uppercase Ukrainian consonants
     If code = 1041 Or code = 1042 Or code = 1043 Or code = 1168 Or code = 1044 Or _
        code = 1046 Or code = 1047 Or code = 1050 Or code = 1051 Or code = 1052 Or _
@@ -757,6 +757,6 @@ Private Function IsConsonant(ByVal char As String) As Boolean
         IsConsonant = True
         Exit Function
     End If
-    
+
     IsConsonant = False
 End Function
