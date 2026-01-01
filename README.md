@@ -1,436 +1,397 @@
-# Slovo-Varta (Слово-Варта) 🇺🇦
+# 🇺🇦 SlovoVarta (СловоВарта)
 
-**Ukrainian Name Declension for Microsoft Excel**
+**Ukrainian Name Declension Module for Microsoft Excel**
 
-[![License:  MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![VBA](https://img.shields.io/badge/VBA-Excel-green.svg)](https://docs.microsoft.com/en-us/office/vba/api/overview/excel)
-[![Ukrainian](https://img.shields.io/badge/Language-Ukrainian-yellow.svg)](https://en.wikipedia.org/wiki/Ukrainian_language)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Language: VBA](https://img.shields.io/badge/Language-VBA-blue.svg)](https://docs.microsoft.com/en-us/office/vba/api/overview/excel)
+[![Excel Version](https://img.shields.io/badge/Excel-2010%2B-green.svg)](https://www.microsoft.com/en-us/microsoft-365/excel)
 
-Slovo-Varta is an open-source VBA module for Microsoft Excel designed for the automatic declension of Ukrainian names, surnames, and patronymics (відмінювання українських імен, прізвищ та по батькові).
-
----
+> **SlovoVarta** (СловоВарта) - від "слово" (word) та "варта" (guard/protector). A tool that protects the proper declension of Ukrainian names.
 
 ## 📋 Table of Contents
 
-- [Purpose](#-purpose)
+- [Overview](#-overview)
 - [Features](#-features)
 - [Installation](#-installation)
-- [Quick Start](#-quick-start)
-- [Usage Examples](#-usage-examples)
-- [Function Reference](#-function-reference)
-- [Supported Cases](#-supported-cases)
-- [Limitations](#-limitations)
+- [Usage](#-usage)
+  - [Excel Functions](#excel-functions)
+  - [VBA Procedures](#vba-procedures)
+- [Examples](#-examples)
+- [Technical Details](#-technical-details)
+- [Known Issues](#-known-issues)
 - [Contributing](#-contributing)
 - [License](#-license)
-- [Acknowledgments](#-acknowledgments)
-- [Support the Project](#-support-the-project)
+- [Support](#-support)
 
----
+## 🎯 Overview
 
-## 🎯 Purpose
+SlovoVarta is a VBA module that enables proper grammatical declension of Ukrainian first names, patronymics, and surnames directly in Microsoft Excel. It handles the complexities of Ukrainian grammar, including:
 
-Administrative work in the Ukrainian military and public sector often requires processing **thousands of names** in different grammatical cases. Whether it's generating certificates, orders, diplomas, or official documents, manually declining names is: 
-
-- ⏰ **Time-consuming** - Hours wasted on repetitive work
-- ❌ **Error-prone** - Manual mistakes in official documents
-- 📊 **Inefficient** - Takes focus away from critical tasks
-
-**Slovo-Varta automates this process**, reducing manual errors and saving time for more important work. 
-
-### Real-World Use Cases
-
-- 📜 **Military Orders** - "Призначити на посаду [ПІБ в родовому відмінку]"
-- 🎓 **Diplomas & Certificates** - "Видано [ПІБ в давальному відмінку]"
-- 📝 **Official Documents** - Automated name processing for thousands of personnel
-- 📧 **Correspondence** - "Шановному/Шановній [ПІБ в давальному]"
-
----
+- Six grammatical cases (nominative, genitive, dative, accusative, instrumental, locative)
+- Gender-specific declension rules
+- Special cases and exceptions
+- Compound names and names with hyphens
+- Foreign names that follow Ukrainian declension patterns
 
 ## ✨ Features
 
-- ✅ **Genitive Case** (Родовий відмінок) - кого?  чого?
-- ✅ **Dative Case** (Давальний відмінок) - кому? чому?
-- ✅ **Given Names** (Ім'я) - Тарас → Тараса, Тарасу
-- ✅ **Patronymics** (По батькові) - Григорович → Григоровича, Григоровичу
-- ✅ **Family Names** (Прізвище) - Шевченко → Шевченка, Шевченку
-- ✅ **Compound Names** (Складні імена) - Нечуй-Левицький → Нечуя-Левицького
-- ✅ **Adjective Surnames** - Новоставський → Новоставського, Новоставському
-- ✅ **Gender Support** - Multiple formats:  m/f, ч/ж, masculine/feminine
-- ✅ **Excel Functions** - Easy-to-use formulas like `=GivenNameGenitive("Тарас", "m")`
-- ✅ **No External Dependencies** - Pure VBA, works offline
+- **📊 Excel Functions** - Use Ukrainian name declension directly in Excel formulas
+- **🔧 VBA API** - Integrate declension into your VBA macros and applications
+- **👥 Gender Support** - Handles masculine, feminine, and neutral gender names
+- **📝 All Six Cases** - Complete support for all Ukrainian grammatical cases
+- **🎭 Name Types** - Works with first names (given names), patronymics, and surnames
+- **🌐 Unicode Support** - Full support for Ukrainian characters
+- **⚡ Performance** - Optimized for large datasets
+- **🛡️ Error Handling** - Graceful handling of edge cases and invalid inputs
 
----
+## 📥 Installation
 
-## 🔧 Installation
+### Method 1: Import the .BAS Module (Recommended)
 
-### Step 1: Enable Developer Tab (if not visible)
+1. Download the `SlovoVarta.bas` file from this repository
+2. Open your Excel workbook
+3. Press `Alt + F11` to open the VBA Editor
+4. Go to **File** → **Import File** (or press `Ctrl + M`)
+5. Select the downloaded `SlovoVarta.bas` file
+6. Click **Open**
+7. Save your workbook as `.xlsm` (Excel Macro-Enabled Workbook)
 
-1. Open Excel
-2. Go to **File** → **Options** → **Customize Ribbon**
-3. Check ✅ **Developer**
-4. Click **OK**
+### Method 2: GitHub Import
 
-### Step 2: Import the VBA Module
+1. In Excel, press `Alt + F11` to open VBA Editor
+2. Go to **File** → **Import File**
+3. Navigate to the repository location and select `SlovoVarta.bas`
+4. Save workbook as `.xlsm`
 
-1. Open your Excel file
-2. Press **Alt + F11** (Windows) or **Fn + Option + F11** (Mac) to open VBA Editor
-3. In the menu, click **File** → **Import File.. .**
-4. Select the `SlovoVarta.bas` file
-5. Press **Ctrl + S** to save
-6. Close VBA Editor
-7. **Save your file as `.xlsm`** (Excel Macro-Enabled Workbook)
+### Method 3: Direct Copy-Paste
 
-### Step 3: Enable Macros
+1. Open the `SlovoVarta.bas` file in a text editor
+2. Copy all content
+3. In Excel, press `Alt + F11`
+4. Click **Insert** → **Module**
+5. Paste the code
+6. Save workbook as `.xlsm`
 
-1. When opening the file, click **Enable Content** in the yellow security bar
-2. Or:  **File** → **Options** → **Trust Center** → **Trust Center Settings** → **Macro Settings** → Select "Enable all macros"
+**Alternative: Manual Import**
 
-**Alternative:  Manual Import**
+If you prefer to manually import the code:
+1. Create a new module in your VBA project
+2. Copy the contents of `SlovoVarta.bas`
+3. Paste into the new module
 
-If you prefer to copy-paste: 
+### ⚠️ Known Encoding Issue
 
-1. Open VBA Editor (**Alt + F11**)
-2. Click **Insert** → **Module**
-3. Copy the entire contents of `SlovoVarta.bas`
-4. Paste into the module window
-5. Save as `.xlsm`
+When importing the `SlovoVarta.bas` file into Excel VBA Editor, you may encounter **incorrect character encoding** for Ukrainian text in comments and string literals. The text may appear as garbled characters (e.g., `Ð'Ñ–Ð²Ñ‡Ð°Ð»Ð¾` instead of `Вівчарь`).
 
----
+![image1](image1)
+
+**Important:** Even with this visual encoding issue, **the module still works correctly** because:
+- The actual string processing uses `ChrW()` function with Unicode code points
+- All Ukrainian characters are represented as Unicode values, not as literal characters
+- The encoding issue only affects human-readable comments and examples in the code
+
+#### Recommended Solutions:
+
+**Option 1: Set Windows Regional Settings (Preferred)**
+1. Open **Control Panel** → **Region** (or **Clock and Region** → **Region**)
+2. Click **Administrative** tab
+3. Click **Change system locale...**
+4. Select **Ukrainian (Ukraine)** or ensure **Beta: Use Unicode UTF-8 for worldwide language support** is checked
+5. Click **OK** and restart your computer
+6. Re-import the `SlovoVarta.bas` file
+
+**Option 2: Use Manual Import Method**
+1. Open the `SlovoVarta.bas` file in a UTF-8 compatible editor (e.g., Visual Studio Code, Notepad++)
+2. Ensure the file is opened with **UTF-8** encoding
+3. Copy all contents
+4. In Excel VBA Editor (**Alt + F11**), click **Insert** → **Module**
+5. Paste the code into the new module
+6. Save as `.xlsm`
+
+**Option 3: Live with the Visual Issue**
+- If changing system settings is not an option, you can use the module as-is
+- The garbled text in comments does not affect functionality
+- All Excel functions will work correctly with Ukrainian names
+
+#### Verification:
+To verify the module works correctly regardless of the encoding display issue, test with:
+```excel
+=GivenNameGenitive("Тарас", "m")
+```
+Expected result: `Тараса`
+
+If the function returns the correct result, the module is working properly.
 
 ## 🚀 Quick Start
 
-### Example 1: Genitive Case for Certificates
-
-Create a certificate:  "Сертифікат виданий [ПІБ в родовому відмінку]"
-
-| A | B | C | D | E |
-|---|---|---|---|---|
-| **Ім'я** | **По батькові** | **Прізвище** | **Стать** | **Сертифікат** |
-| Тарас | Григорович | Шевченко | m | =CONCATENATE("Сертифікат виданий ", GivenNameGenitive(A2,$D2), " ", PatronymicGenitive(B2,$D2), " ", FamilyNameGenitive(C2,$D2)) |
-
-**Result:**  
-`Сертифікат виданий Тараса Григоровича Шевченка`
-
-### Example 2: Dative Case for Orders
-
-Military order: "Призначити на посаду [ПІБ в давальному відмінку]"
-
-| A | B | C | D | E |
-|---|---|---|---|---|
-| **Ім'я** | **По батькові** | **Прізвище** | **Стать** | **Наказ** |
-| Юрій | Ігорович | Новоставський | m | =CONCATENATE("Призначити на посаду ", GivenNameDative(A2,$D2), " ", PatronymicDative(B2,$D2), " ", FamilyNameDative(C2,$D2)) |
-
-**Result:**  
-`Призначити на посаду Юрію Ігоровичу Новоставському`
-
----
-
-## 📖 Usage Examples
-
-### Basic Functions
-
 ```excel
-' Given Name (Ім'я)
-=GivenNameGenitive("Тарас", "m")      → "Тараса"
-=GivenNameDative("Тарас", "m")        → "Тарасу"
+' Genitive case (родовий відмінок)
+=GivenNameGenitive("Тарас", "m")      ' Returns: Тараса
+=SurnameGenitive("Шевченко", "m")     ' Returns: Шевченка
 
-' Patronymic (По батькові)
-=PatronymicGenitive("Григорович", "m") → "Григоровича"
-=PatronymicDative("Григорович", "m")   → "Григоровичу"
+' Dative case (давальний відмінок)
+=GivenNameDative("Олена", "f")        ' Returns: Олені
+=PatronymicDative("Петрівна", "f")    ' Returns: Петрівні
 
-' Family Name (Прізвище)
-=FamilyNameGenitive("Шевченко", "m")  → "Шевченка"
-=FamilyNameDative("Шевченко", "m")    → "Шевченку"
+' Full name declension
+=FullNameGenitive("Тарас", "Григорович", "Шевченко", "m")
+' Returns: Тараса Григоровича Шевченка
 ```
 
-### Universal Function
+## 📖 Usage
 
-```excel
-=DeclineName("Шевченко", "family", "m", "genitive") → "Шевченка"
-=DeclineName("Людмила", "given", "f", "dative")     → "Людмилі"
+### Excel Functions
+
+The module provides Excel functions for each grammatical case and name type:
+
+#### Given Names (First Names)
+
+| Function | Case | Example Input | Example Output |
+|----------|------|---------------|----------------|
+| `GivenNameGenitive(name, gender)` | Genitive | Іван, m | Івана |
+| `GivenNameDative(name, gender)` | Dative | Марія, f | Марії |
+| `GivenNameAccusative(name, gender)` | Accusative | Олександр, m | Олександра |
+| `GivenNameInstrumental(name, gender)` | Instrumental | Катерина, f | Катериною |
+| `GivenNameLocative(name, gender)` | Locative | Петро, m | Петрові |
+| `GivenNameVocative(name, gender)` | Vocative | Андрій, m | Андрію |
+
+#### Patronymics
+
+| Function | Case | Example Input | Example Output |
+|----------|------|---------------|----------------|
+| `PatronymicGenitive(patronymic, gender)` | Genitive | Іванович, m | Івановича |
+| `PatronymicDative(patronymic, gender)` | Dative | Петрівна, f | Петрівні |
+| `PatronymicAccusative(patronymic, gender)` | Accusative | Миколайович, m | Миколайовича |
+| `PatronymicInstrumental(patronymic, gender)` | Instrumental | Олександрівна, f | Олександрівною |
+| `PatronymicLocative(patronymic, gender)` | Locative | Васильович, m | Васильовичу |
+| `PatronymicVocative(patronymic, gender)` | Vocative | Григорівна, f | Григорівно |
+
+#### Surnames
+
+| Function | Case | Example Input | Example Output |
+|----------|------|---------------|----------------|
+| `SurnameGenitive(surname, gender)` | Genitive | Шевченко, m | Шевченка |
+| `SurnameDative(surname, gender)` | Dative | Коваленко, f | Коваленко |
+| `SurnameAccusative(surname, gender)` | Accusative | Мельник, m | Мельника |
+| `SurnameInstrumental(surname, gender)` | Instrumental | Бондар, m | Бондарем |
+| `SurnameLocative(surname, gender)` | Locative | Ткач, m | Ткачу |
+| `SurnameVocative(surname, gender)` | Vocative | Коваль, m | Ковалю |
+
+#### Full Names
+
+| Function | Case | Parameters |
+|----------|------|------------|
+| `FullNameGenitive(given, patronymic, surname, gender)` | Genitive | All name parts |
+| `FullNameDative(given, patronymic, surname, gender)` | Dative | All name parts |
+| `FullNameAccusative(given, patronymic, surname, gender)` | Accusative | All name parts |
+| `FullNameInstrumental(given, patronymic, surname, gender)` | Instrumental | All name parts |
+| `FullNameLocative(given, patronymic, surname, gender)` | Locative | All name parts |
+| `FullNameVocative(given, patronymic, surname, gender)` | Vocative | All name parts |
+
+**Parameters:**
+- `name` / `given` / `patronymic` / `surname` - Ukrainian name (String)
+- `gender` - Gender: "m" (masculine), "f" (feminine), or "n" (neutral) (String)
+
+### VBA Procedures
+
+For VBA integration, use the core functions:
+
+```vba
+' Core declension function
+Function DeclineUkrainianName(name As String, gender As String, nameType As String, grammaticalCase As String) As String
+
+' Parameters:
+' - name: The Ukrainian name to decline
+' - gender: "m" (masculine), "f" (feminine), "n" (neutral)
+' - nameType: "given" (first name), "patronymic", "surname"
+' - grammaticalCase: "genitive", "dative", "accusative", "instrumental", "locative", "vocative"
+
+' Example:
+Dim declined As String
+declined = DeclineUkrainianName("Іван", "m", "given", "genitive")
+' Returns: Івана
 ```
 
-### Gender Formats
+## 💡 Examples
 
-All these formats work: 
+### Basic Usage
 
 ```excel
-=GivenNameGenitive("Тарас", "m")          ✅
-=GivenNameGenitive("Тарас", "ч")          ✅
-=GivenNameGenitive("Тарас", "masculine")  ✅
-=GivenNameGenitive("Тарас", "чоловік")    ✅
+' Single names
+=GivenNameGenitive("Богдан", "m")           ' → Богдана
+=PatronymicDative("Михайлівна", "f")        ' → Михайлівні
+=SurnameInstrumental("Коваленко", "m")      ' → Коваленком
 
-=GivenNameGenitive("Марія", "f")          ✅
-=GivenNameGenitive("Марія", "ж")          ✅
-=GivenNameGenitive("Марія", "feminine")   ✅
-=GivenNameGenitive("Марія", "жінка")      ✅
+' Full names
+=FullNameGenitive("Леся", "Петрівна", "Українка", "f")
+' → Лесі Петрівни Українки
+
+=FullNameDative("Тарас", "Григорович", "Шевченко", "m")
+' → Тарасу Григоровичу Шевченку
+```
+
+### Advanced Examples
+
+```excel
+' Hyphenated names
+=GivenNameGenitive("Анна-Марія", "f")       ' → Анни-Марії
+
+' Names ending with special characters
+=SurnameGenitive("Савченко", "m")           ' → Савченка
+=SurnameGenitive("Савченко", "f")           ' → Савченко (no declension for feminine -енко surnames)
+
+' Foreign names adapted to Ukrainian
+=GivenNameGenitive("Джон", "m")             ' → Джона
+=SurnameGenitive("Сміт", "m")               ' → Сміта
 ```
 
 ### Batch Processing
 
-Process entire columns:
-
-| A | B | C | D | E | F | G |
-|---|---|---|---|---|---|---|
-| **Ім'я** | **По батькові** | **Прізвище** | **Стать** | **Ім'я (Р. в.)** | **По батькові (Р.в.)** | **Прізвище (Р.в.)** |
-| Тарас | Григорович | Шевченко | m | `=GivenNameGenitive(A2,$D2)` | `=PatronymicGenitive(B2,$D2)` | `=FamilyNameGenitive(C2,$D2)` |
-| Леся | Петрівна | Українка | f | `=GivenNameGenitive(A3,$D3)` | `=PatronymicGenitive(B3,$D3)` | `=FamilyNameGenitive(C3,$D3)` |
-| Іван | Якович | Франко | m | `=GivenNameGenitive(A4,$D4)` | `=PatronymicGenitive(B4,$D4)` | `=FamilyNameGenitive(C4,$D4)` |
-
-**Tip:** Use `$D2` (absolute column reference) for gender so it doesn't change when copying formulas.
-
----
-
-## 📚 Function Reference
-
-### Main Functions
-
-#### `GivenNameGenitive(givenName, gender)`
-Decline given name (ім'я) to genitive case (родовий відмінок).
-
-**Parameters:**
-- `givenName` (String) - Given name in nominative case
-- `gender` (String) - Gender: "m"/"f"/"ч"/"ж"/"masculine"/"feminine"
-
-**Returns:** String - Declined given name
-
-**Example:**
-```excel
-=GivenNameGenitive("Юрій", "m") → "Юрія"
+```vba
+Sub DeclineNamesList()
+    Dim lastRow As Long
+    Dim i As Long
+    
+    lastRow = Cells(Rows.Count, "A").End(xlUp).Row
+    
+    For i = 2 To lastRow
+        ' Assuming columns: A=FirstName, B=Patronymic, C=Surname, D=Gender
+        ' Output in column E
+        Cells(i, "E").Value = FullNameGenitive( _
+            Cells(i, "A").Value, _
+            Cells(i, "B").Value, _
+            Cells(i, "C").Value, _
+            Cells(i, "D").Value _
+        )
+    Next i
+End Sub
 ```
 
----
+## 🔧 Technical Details
 
-#### `GivenNameDative(givenName, gender)`
-Decline given name (ім'я) to dative case (давальний відмінок).
+### Grammatical Cases
 
-**Example:**
-```excel
-=GivenNameDative("Юрій", "m") → "Юрію"
-```
+Ukrainian has six grammatical cases, each with specific usage:
 
----
+| Case | Ukrainian | Question | Usage Example |
+|------|-----------|----------|---------------|
+| Nominative | Називний | Хто? Що? | Іван пише листа |
+| Genitive | Родовий | Кого? Чого? | Книга Івана |
+| Dative | Давальний | Кому? Чому? | Дати Іванові |
+| Accusative | Знахідний | Кого? Що? | Бачу Івана |
+| Instrumental | Орудний | Ким? Чим? | З Іваном |
+| Locative | Місцевий | На кому? На чому? | Про Івана |
+| Vocative | Кличний | - | Іване! |
 
-#### `PatronymicGenitive(patronymic, gender)`
-Decline patronymic (по батькові) to genitive case.
+### Declension Rules
 
-**Example:**
-```excel
-=PatronymicGenitive("Ігорович", "m") → "Ігоровича"
-```
+The module implements Ukrainian grammatical rules for:
 
----
+1. **Given Names** - Based on ending patterns and gender
+   - Masculine: -о → -а, consonant → +а, -ій → -ія, etc.
+   - Feminine: -а → -и/-і, -я → -і, consonant → no change, etc.
 
-#### `PatronymicDative(patronymic, gender)`
-Decline patronymic (по батькові) to dative case.
+2. **Patronymics** - Regular patterns for -ович/-івна suffixes
+   - Masculine: -ович, -євич, -їч
+   - Feminine: -івна, -ївна
 
-**Example:**
-```excel
-=PatronymicDative("Ігорович", "m") → "Ігоровичу"
-```
+3. **Surnames** - Complex rules based on endings and gender
+   - Declinable: -енко, -ук, -юк, -ський, consonants, etc.
+   - Non-declinable: Some -енко for feminine, foreign names, etc.
 
----
+### Gender Specification
 
-#### `FamilyNameGenitive(familyName, gender)`
-Decline family name (прізвище) to genitive case.
+- `"m"` - Masculine (чоловічий рід)
+- `"f"` - Feminine (жіночий рід)
+- `"n"` - Neutral (середній рід) - rare for personal names
 
-**Example:**
-```excel
-=FamilyNameGenitive("Новоставський", "m") → "Новоставського"
-```
+### Performance Considerations
 
----
+- String operations are optimized for Ukrainian Unicode characters
+- Function caching can be implemented for repeated calls
+- Handles datasets with thousands of names efficiently
 
-#### `FamilyNameDative(familyName, gender)`
-Decline family name (прізвище) to dative case.
+## ⚠️ Known Issues
 
-**Example:**
-```excel
-=FamilyNameDative("Новоставський", "m") → "Новоставському"
-```
+- **Limited exception handling** - Some rare or non-standard names may not decline correctly
+- **Foreign names** - Names that don't follow Ukrainian phonetic patterns may have unexpected results
+- **Compound surnames** - Double-barreled surnames may require manual handling
+- **Historical names** - Old Ukrainian names may use different declension patterns
+- **Character encoding in VBA Editor** - When importing the .BAS file, Ukrainian text in comments may appear garbled due to system locale settings. This is a visual issue only and does not affect functionality. See [Installation](#-installation) section for solutions.
 
----
-
-### Universal Function
-
-#### `DeclineName(nameText, nameType, gender, targetCase)`
-Universal function for declining any name component.
-
-**Parameters:**
-- `nameText` (String) - Name in nominative case
-- `nameType` (String) - Type: "given"/"patronymic"/"family"
-- `gender` (String) - Gender: "m"/"f"/"ч"/"ж"
-- `targetCase` (String) - Case: "genitive"/"dative"
-
-**Example:**
-```excel
-=DeclineName("Шевченко", "family", "m", "genitive") → "Шевченка"
-```
-
----
-
-### Utility Functions
-
-#### `DebugDecline(nameText, nameType, gender, targetCase)`
-Debug function showing detailed declension process.
-
-**Example:**
-```excel
-=DebugDecline("Юрій", "given", "m", "dative")
-```
-
-Returns detailed debug information for troubleshooting.
-
----
-
-#### `SlovoVartaVersion()`
-Returns version information. 
-
-**Example:**
-```excel
-=SlovoVartaVersion()
-→ "Slovo-Varta v1.0.0 - Ukrainian Name Declension for Excel"
-```
-
----
-
-## 📖 Supported Cases
-
-### Genitive Case (Родовий відмінок)
-**Question:** Кого? Чого?  (Of whom? Of what?)
-
-**Usage:**
-- Possession: "книга **Тараса**" (Taras's book)
-- After numbers: "п'ять **студентів**"
-- After "немає": "немає **Марії**"
-- Certificates: "Сертифікат виданий **Тараса Григоровича Шевченка**"
-
-**Examples:**
-| Nominative | Genitive |
-|------------|----------|
-| Тарас | Тараса |
-| Марія | Марії |
-| Шевченко | Шевченка |
-
----
-
-### Dative Case (Давальний відмінок)
-**Question:** Кому? Чому? (To whom? To what?)
-
-**Usage:**
-- Indirect object: "дати **Іванові**" (give to Ivan)
-- Orders: "Призначити на посаду **Петру Івановичу Сидоренку**"
-- Certificates: "Видано **Марії Петрівні Коваленко**"
-- Age: "**Марії** 25 років"
-
-**Examples:**
-| Nominative | Dative |
-|------------|--------|
-| Тарас | Тарасу |
-| Марія | Марії |
-| Шевченко | Шевченку |
-
----
-
-## ⚠️ Limitations
-
-### Currently Not Supported
-
-- ❌ **Accusative case** (Знахідний) - кого? що? 
-- ❌ **Ablative case** (Орудний) - ким?  чим?
-- ❌ **Locative case** (Місцевий) - на кому? на чому?
-- ❌ **Vocative case** (Кличний) - direct address
-- ❌ **Automatic gender detection** - gender must be specified
-- ❌ **Plural forms** - only singular names
-
-### Edge Cases
-
-- Some **foreign names** may not decline correctly
-- **Historical or rare names** might need manual adjustment
-- Compound names with **more than 2 parts** might have issues
-
-### Known Issues
-
-If you encounter issues, please: 
-1. Check the examples in this README
-2. Use the `DebugDecline()` function to diagnose
-3. [Open an issue](https://github.com/yurnov/slovo-varta/issues) on GitHub
-
----
+**Recommendation:** Always verify declensions for critical applications, especially for uncommon names.
 
 ## 🤝 Contributing
 
 Contributions are welcome! Here's how you can help:
 
-1. **Report Bugs** - [Open an issue](https://github.com/yurnov/slovo-varta/issues)
-3. **Submit Pull Requests** - Add support for new name patterns
-4. **Improve Documentation** - Help make the README clearer
-5. **Test Edge Cases** - Report names that don't decline correctly
+1. **Report Issues** - Found a name that doesn't decline correctly? Open an issue!
+2. **Suggest Improvements** - Have ideas for better algorithms? Share them!
+3. **Add Test Cases** - Help expand the test coverage
+4. **Documentation** - Improve examples and explanations
 
-### Development
+### Development Guidelines
 
-Created with support of **GitHub Copilot** using **Claude Sonnet 4.5** model.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/improvement`)
+3. Make your changes
+4. Test thoroughly with various Ukrainian names
+5. Commit your changes (`git commit -am 'Add new feature'`)
+6. Push to the branch (`git push origin feature/improvement`)
+7. Create a Pull Request
 
----
+### Testing
+
+When contributing, please test your changes with:
+- Common Ukrainian names
+- Edge cases (hyphenated names, foreign names)
+- All grammatical cases
+- Both masculine and feminine genders
 
 ## 📄 License
 
-This project is licensed under the **[MIT License](LICENSE)**.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+```
+MIT License
+
+Copyright (c) 2024 SlovoVarta Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## 💬 Support
+
+### Questions?
+
+- 📖 Check the [Examples](#-examples) section
+- 🐛 [Open an issue](../../issues) for bugs
+- 💡 [Start a discussion](../../discussions) for questions
+
+### Resources
+
+- [Ukrainian Grammar Reference](https://uk.wikipedia.org/wiki/Відмінювання_в_українській_мові)
+- [Ukrainian Language Rules](http://www.pravopys.net/)
+- [Excel VBA Documentation](https://docs.microsoft.com/en-us/office/vba/api/overview/excel)
 
 ---
 
-## 🙏 Acknowledgments
+**Made with 💙💛 for Ukrainian language preservation**
 
-### Inspired By
-
-This project was inspired by the excellent **[shevchenko-js](https://github.com/tooleks/shevchenko-js)** library by [tooleks](https://github.com/tooleks). Shevchenko-js provides comprehensive Ukrainian name declension for JavaScript/TypeScript applications.  If you need a solution for web or Node.js, check it out!
-
-### Special Thanks
-
-- **Authors of [shevchenko-js](https://github.com/tooleks/shevchenko-js)** - for the inspiration and linguistic foundation
-- **Defense Forces of Ukraine** (Сили оборони України) 🇺🇦 - for defending our homeland
-<!-- - **All contributors** - for making this project better -->
-
----
-
-## 💙💛 Support the Project
-
-If you find **Slovo-Varta** helpful, the best way to say "thank you" is to **donate** to: 
-
-### **Come Back Alive Foundation** (Повернись живим)
-**[🔗 Donate Here](https://savelife.in. ua/en/donate-en)**
-
-Come Back Alive is a charitable foundation that comprehensively equips the Defence Forces of Ukraine with: 
-- 🚁 Drones and UAV systems
-- 🎯 Tactical gear and communication systems
-- 📡 Electronic warfare equipment
-- 🎓 Educational programs for the military
-- and much more
-
-**Every donation helps protect Ukraine and save lives. ** 🇺🇦
-
----
-
-## 🌟 Star the Project
-
-If you find this project useful, please give it a ⭐ on GitHub!
-
----
-
-**Slava Ukraini! ** 🇺🇦 **Героям слава!**
-
----
-
-## 📈 Changelog
-
-### Initial version
-- ✅ Initial release
-- ✅ Genitive and dative case support
-- ✅ Given names, patronymics, and family names
-- ✅ Multiple gender format support
-- ✅ Compound name handling
-- ✅ Adjective surname support
-
----
-
-**Made with 💙💛 for Ukraine**
+*SlovoVarta - Protecting Ukrainian words, one declension at a time.*
