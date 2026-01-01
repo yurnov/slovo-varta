@@ -278,7 +278,7 @@ Private Function ParseGender(ByVal genderStr As String) As GrammaticalGender
                 ParseGender = Feminine
             Else
                 Err.Raise vbObjectError + 1, "ParseGender", _
-                    "Invalid gender:  '" & genderStr & "'.  Use:  m/f/male/female/ч/ж/masculine/feminine"
+                    "Invalid gender: '" & genderStr & "'.  Use:  m/f/male/female/ч/ж/masculine/feminine"
             End If
     End Select
 End Function
