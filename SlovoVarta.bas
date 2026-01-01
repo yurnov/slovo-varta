@@ -126,7 +126,7 @@ Public Function DeclineName(ByVal nameText As String, _
     Exit Function
 
 ErrorHandler:
-    DeclineName = "#ERROR:  " & Err.Description
+    DeclineName = "#ERROR: " & Err.Description
 End Function
 
 '/**
