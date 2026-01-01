@@ -117,8 +117,9 @@ If the function returns the correct result, the module is working properly.
 
 ### Step 3: Enable Macros
 
-1. When opening the file, click **Enable Content** in the yellow security bar
-2. Or: **File** → **Options** → **Trust Center** → **Trust Center Settings** → **Macro Settings** → Select "Enable all macros"
+1. When opening the file, if a yellow security bar appears, click **Enable Content** to trust macros in this workbook.
+2. Keep the default macro setting **"Disable all macros with notification"** in **File** → **Options** → **Trust Center** → **Trust Center Settings** → **Macro Settings**.
+3. (Optional, advanced) If you use this tool frequently, you can add the folder containing this workbook to **Trusted Locations** via **File** → **Options** → **Trust Center** → **Trust Center Settings** → **Trusted Locations** → **Add new location...** so Excel will trust workbooks in that folder without lowering macro security globally.
 
 **Alternative: Manual Import**
 
