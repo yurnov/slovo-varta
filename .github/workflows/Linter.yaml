@@ -1,0 +1,23 @@
+name: linter
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  vba-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+      - name: Lint SlovoVarta.bas
+        uses: Vba-actions/lint-vba@v1.0.0
+        with:
+          path: "./"
