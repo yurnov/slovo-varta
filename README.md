@@ -313,7 +313,7 @@ Decline family name (прізвище) to dative case (давальний від
 Відмінювання прізвища до давального відмінку.
 
 **Parameters:**
-- `familyName` (String) - Family name in nominative case (Прізвище у nazivному відмінку)
+- `familyName` (String) - Family name in nominative case (Прізвище у називному відмінку)
 - `gender` (String) - Gender (Стать): "m"/"f"/"ч"/"ж"/"masculine"/"feminine"/"man"/"woman"/"w"/"чоловік"/"жінка"
 
 **Returns:** String - Declined family name (Прізвище у давальному відмінку)
