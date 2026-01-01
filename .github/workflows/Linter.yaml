@@ -20,4 +20,4 @@ jobs:
       - name: Lint SlovoVarta.bas
         uses: Vba-actions/lint-vba@v1.0.0
         with:
-          path: "SlovoVarta.bas"
+          path: "./"
