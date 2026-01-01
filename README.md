@@ -211,7 +211,7 @@ Process entire columns:
 | A | B | C | D | E | F | G |
 |---|---|---|---|---|---|---|
 | **Ім'я** | **По батькові** | **Прізвище** | **Стать** | **Ім'я (Р. в.)** | **По батькові (Р.в.)** | **Прізвище (Р.в.)** |
-| Тарас | Григорович | Шевченко | m | `=GivenNameGenitive(A2,$D2)` | `=PatronomicGenitive(B2,$D2)` | `=FamilyNameGenitive(C2,$D2)` |
+| Тарас | Григорович | Шевченко | m | `=GivenNameGenitive(A2,$D2)` | `=PatronymicGenitive(B2,$D2)` | `=FamilyNameGenitive(C2,$D2)` |
 | Леся | Петрівна | Українка | f | `=GivenNameGenitive(A3,$D3)` | `=PatronymicGenitive(B3,$D3)` | `=FamilyNameGenitive(C3,$D3)` |
 | Іван | Якович | Франко | m | `=GivenNameGenitive(A4,$D4)` | `=PatronymicGenitive(B4,$D4)` | `=FamilyNameGenitive(C4,$D4)` |
 
