@@ -82,9 +82,9 @@ Administrative work in the Ukrainian military and public sector often requires p
 
 ### ⚠️ Known Encoding Issue
 
-When importing the `SlovoVarta.bas` file into Excel VBA Editor, you may encounter **incorrect character encoding** for Ukrainian text in comments and string literals. The text may appear as garbled characters (e.g., `Ð'Ñ–Ð²Ñ‡Ð°Ð»Ð¾` instead of `Вівчарь`).
+When importing the `SlovoVarta.bas` file into Excel VBA Editor, you may encounter **incorrect character encoding** for Ukrainian text in comments and string literals. The text may appear as garbled characters (e.g., `Ð¨ÐµÐ²Ñ‡ÐµÐ½ÐºÐ¾` instead of `Шевченко`).
 
-![image1](image1)
+![img/broken_chartset.png](img/broken_chartset.png)
 
 **Important:** Even with this visual encoding issue, **the module still works correctly** because:
 - The actual string processing uses `ChrW()` function with Unicode code points
@@ -97,19 +97,11 @@ When importing the `SlovoVarta.bas` file into Excel VBA Editor, you may encounte
 1. Open **Control Panel** → **Region** (or **Clock and Region** → **Region**)
 2. Click **Administrative** tab
 3. Click **Change system locale...**
-4. Select **Ukrainian (Ukraine)** or ensure **Beta: Use Unicode UTF-8 for worldwide language support** is checked
+4. Select **Ukrainian (Ukraine)**
 5. Click **OK** and restart your computer
 6. Re-import the `SlovoVarta.bas` file
 
-**Option 2: Use Manual Import Method**
-1. Open the `SlovoVarta.bas` file in a UTF-8 compatible editor (e.g., Visual Studio Code, Notepad++)
-2. Ensure the file is opened with **UTF-8** encoding
-3. Copy all contents
-4. In Excel VBA Editor (**Alt + F11**), click **Insert** → **Module**
-5. Paste the code into the new module
-6. Save as `.xlsm`
-
-**Option 3: Live with the Visual Issue**
+**Option 2: Live with the Visual Issue**
 - If changing system settings is not an option, you can use the module as-is
 - The garbled text in comments does not affect functionality
 - All Excel functions will work correctly with Ukrainian names
@@ -374,7 +366,7 @@ Returns version information.
 **Example:**
 ```excel
 =SlovoVartaVersion()
-→ "Slovo-Varta v1.0.0 - Ukrainian Name Declension for Excel"
+→ "Slovo-Varta v1.0.0a - Ukrainian Name Declension for Excel"
 ```
 
 ---
