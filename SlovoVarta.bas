@@ -568,14 +568,10 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             Exit Function
         End If
 
-        ' === -ко (Шевченко, Максименко) ===
-        If EndsWith(familyName, ChrW(1082) & ChrW(1086)) Then
-            stem = Left(familyName, nameLen - 1)
-            If targetCase = Genitive Then
-                DeclineFamilyName = stem & ChrW(1072) ' а
-            Else
-                DeclineFamilyName = stem & ChrW(1091) ' у
-            End If
+        ' === -ко, -о (indeclinable: Шевченко, Коваленко, Франко) ===
+        If EndsWith(familyName, ChrW(1082) & ChrW(1086)) Or _
+           EndsWith(familyName, ChrW(1086)) Then
+            DeclineFamilyName = familyName
             Exit Function
         End If
 
@@ -634,14 +630,10 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             Exit Function
         End If
 
-        ' === -ко ===
-        If EndsWith(familyName, ChrW(1082) & ChrW(1086)) Then
-            stem = Left(familyName, nameLen - 1)
-            If targetCase = Genitive Then
-                DeclineFamilyName = stem & ChrW(1072) ' а
-            Else
-                DeclineFamilyName = stem & ChrW(1091) ' у
-            End If
+        ' === -ко, -о (indeclinable: Шевченко, Коваленко, Франко) ===
+        If EndsWith(familyName, ChrW(1082) & ChrW(1086)) Or _
+           EndsWith(familyName, ChrW(1086)) Then
+            DeclineFamilyName = familyName
             Exit Function
         End If
 
