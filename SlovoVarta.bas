@@ -1,6 +1,6 @@
 '===============================================================================
 ' Slovo-Varta (Слово-Варта)
-' Version:  1.0.0a
+' Version:  1.0.0-alpha1
 ' Date: 2026-01-01
 '
 ' Description:
@@ -248,7 +248,7 @@ End Function
 ' * Get version information
 ' */
 Public Function SlovoVartaVersion() As String
-    SlovoVartaVersion = "Slovo-Varta v1.0.0a - Ukrainian Name Declension for Excel"
+    SlovoVartaVersion = "Slovo-Varta v1.0.0-alpha1 - Ukrainian Name Declension for Excel"
 End Function
 
 '===============================================================================
@@ -634,14 +634,10 @@ Private Function DeclineFamilyName(ByVal familyName As String, _
             Exit Function
         End If
 
-        ' === -ко ===
-        If EndsWith(familyName, ChrW(1082) & ChrW(1086)) Then
-            stem = Left(familyName, nameLen - 1)
-            If targetCase = Genitive Then
-                DeclineFamilyName = stem & ChrW(1072) ' а
-            Else
-                DeclineFamilyName = stem & ChrW(1091) ' у
-            End If
+        ' === -ко, -о (indeclinable: Шевченко, Коваленко, Франко) ===
+        If EndsWith(familyName, ChrW(1082) & ChrW(1086)) Or _
+           EndsWith(familyName, ChrW(1086)) Then
+            DeclineFamilyName = familyName
             Exit Function
         End If
 

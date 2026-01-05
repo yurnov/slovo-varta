@@ -135,7 +135,7 @@ If you prefer to copy-paste:
 
 ## 🚀 Quick Start
 
-### Example 1: Genitive Case for Certificates
+### Example 1: Dative Case for Orders
 
 Military order: "Призначити на посаду [ПІБ в родовому відмінку]"
 
@@ -147,7 +147,7 @@ Military order: "Призначити на посаду [ПІБ в родово�
 **Result:**
 `Призначити на посаду Тараса Григоровича Шевченка`
 
-### Example 2: Dative Case for Orders
+### Example 2: Genitive Case for Certificates
 
 Create a certificate: "Сертифікат виданий [ПІБ в давальному відмінку]"
 
@@ -529,7 +529,12 @@ If you find this project useful, please give it a ⭐ on GitHub!
 
 ## 📈 Changelog
 
-### Initial version (1.0.0-alpha)
+### v1.0.0-alpha1
+- ✅ **Fixed feminine surnames ending with -ко and -о** ([#3](https://github.com/yurnov/slovo-varta/issues/3), [#4](https://github.com/yurnov/slovo-varta/pull/4))
+    - Corrected declension for surnames like "Іваненко", "Коваленко" for feminine gender
+    - Corrected description of examples (example 1 and 2)
+
+### v1.0.0-alpha (Initial Release)
 - ✅ Initial release
 - ✅ Genitive and dative case support
 - ✅ Given names, patronymics, and family names
