@@ -1,6 +1,6 @@
 '===============================================================================
 ' Slovo-Varta (Слово-Варта)
-' Version:  1.0.0a
+' Version:  1.0.0-alpha1
 ' Date: 2026-01-01
 '
 ' Description:
@@ -248,7 +248,7 @@ End Function
 ' * Get version information
 ' */
 Public Function SlovoVartaVersion() As String
-    SlovoVartaVersion = "Slovo-Varta v1.0.0a - Ukrainian Name Declension for Excel"
+    SlovoVartaVersion = "Slovo-Varta v1.0.0-alpha1 - Ukrainian Name Declension for Excel"
 End Function
 
 '===============================================================================
